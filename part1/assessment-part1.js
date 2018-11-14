@@ -7,20 +7,20 @@
 
 // Given the following nested functions:
 
-function daBears(){
+function daBears() {
   var isFurry = true;
 
-  function papaBear (){
+  function papaBear() {
     var porridge = "Too Hot!";
     var chair = "Too Big!";
     var bed = "Too Hard!";
     var feeling = "Angry";
 
-    function mamaBear(){
+    function mamaBear() {
       var porridge = "Too Cold!";
       var bed = "Too Soft!";
 
-      function babyBear(){
+      function babyBear() {
         var porridge = "Just right!";
         var chair = "Just right!";
         var bed = "Just right!";
@@ -30,7 +30,7 @@ function daBears(){
     }
   }
 
-  function goldilocks(){
+  function goldilocks() {
     var feeling = "Hungry";
     var isFurry = false;
     var isDinner = true;
@@ -43,28 +43,27 @@ function daBears(){
 // Which function(s) access the "chair" variable and get "Too Big!"
 // (Delete wrong answers, leave correct ones)
 
-var fairyTale1 = ["daBears", "papaBear", "mamaBear", "babyBear", "goldilocks"];
+var fairyTale1 = ["papaBear", "mamaBear"];
 
 // Which function(s) access the "feeling" variable and get "Hungry"
 // (Delete wrong answers, leave correct ones)
 
-var fairyTale2 = ["daBears", "papaBear", "mamaBear", "babyBear", "goldilocks"];
+var fairyTale2 = ["goldilocks"];
 
 // Which function(s) access the "porridge" variable and get "Too Cold!"
 // (Delete wrong answers, leave correct ones)
 
-var fairyTale3 = ["daBears", "papaBear", "mamaBear", "babyBear", "goldilocks"];
+var fairyTale3 = ["mamaBear"];
 
 // Which function(s) access the "sleepy" variable and get undefined
 // (Delete wrong answers, leave correct ones)
 
-var fairyTale4 = ["daBears", "papaBear", "mamaBear", "babyBear", "goldilocks"];
+var fairyTale4 = ["daBears", "papaBear", "mamaBear", "goldilocks"];
 
 // Which function(s) access the isFurry variable and get true
 // (Delete wrong answers, leave correct ones)
 
-var fairyTale5 = ["daBears", "papaBear", "mamaBear", "babyBear", "goldilocks"];
-
+var fairyTale5 = ["daBears", "papaBear", "mamaBear", "babyBear"];
 
 // *************
 // * PROBLEM 2 *
@@ -73,9 +72,25 @@ var fairyTale5 = ["daBears", "papaBear", "mamaBear", "babyBear", "goldilocks"];
 // Write a constructor function called Vehicle.  Vehicle should have a property
 // called gasRemaining that is equal to 100.
 
+class Vehicle {
+  constructor() {
+    //WE NEED TO USE THIS.SOMETHING TO POINT BACK TO 'VEHICLE'
+    this.gasRemaining = 100;
+  }
+}
+// function Vehicle() {
+//   this.gasRemaining = 100;
+// }
+
 // Next, assign a function called drive to the Vehicle prototype.  When invoked,
 // drive should subtract 25 from the gasRemaining property of any Vehicle your constructor
 // function creates.
+
+Vehicle.prototype.drive = function() {
+  // DOT NOTATION TO ADD DRIVE TO VEHICLE PROTO
+  // WHEN DRIVE ENVOKED WE SUBTRACT 25 FROM OG VALUE
+  this.gasRemaining = this.gasRemaining - 25;
+};
 
 // Create 2 new Vehicles with the constructor function you made: one called "charger",
 // the other called "mustang".  Using implicit context, invoke the drive method on
@@ -83,16 +98,20 @@ var fairyTale5 = ["daBears", "papaBear", "mamaBear", "babyBear", "goldilocks"];
 
 // CODE HERE...
 
+// WE WRITE A LOWERCASE 'new' BEFORE OUR VEHICLE CLASS
+var charger = new Vehicle();
+var mustang = new Vehicle();
 
-
-
+charger.drive();
+// WE ENVOKE DRIVE TWICE, SEPERATELY ON MUSTANG TO GET CORRECT
+mustang.drive();
+mustang.drive();
 
 // -----------------------------------------------------------------------------
 
 // *************
 // * PROBLEM 3 *
 // *************
-
 
 // For this problem, you will need to add a method to the String prototype named
 // "grammarPolice".  When called on a string, "grammarPolice" will return a new string
@@ -104,12 +123,25 @@ var fairyTale5 = ["daBears", "papaBear", "mamaBear", "babyBear", "goldilocks"];
 // Your method may be passed punctuation, numbers or other non-letter characters
 // and should neither modify them nor break when encountering them.
 
-
-
-
 // CODE HERE...
 
+//str="jELLoooJELLO"
+//String.prototype.grammarPolice = function(str) {
+String.prototype.grammarPolice = function() {
+  newStr = this.toLowerCase().split(" ");
+  // MAKE ALL LETTERS LOWERCASE, THEN SPLIT THEM INDIVIDUAL WORDS, ** NOTICE THE SPACE INSIDE (" ")
+  for (var i = 0; i < newStr.length; i++) {
+    // ITERATE OVER EACH LETTER IN THE WORD(S)
+    newStr[i] = newStr[i].charAt(0).toUpperCase() + newStr[i].substring(1);
+    // FIND FIRST LETTER AND MAKE IT UPPERCASE
+    // THEN CONCAT THE LETTERS AFTER INDEX 1 **USING SUBSTRING METHOD
+    // SUBSTRING returns the part of the string between the start and end indexes, or to the end of the string.
+  }
 
+  newStr = newStr.join(" ");
+  // JOIN THE INDIVIDUAL WORDS BACK TOGETHER INTO SENTENCE FORMAT & RETURN
+  return newStr;
+};
 
 // *************
 // * PROBLEM 4 *
@@ -127,7 +159,18 @@ var fairyTale5 = ["daBears", "papaBear", "mamaBear", "babyBear", "goldilocks"];
 
 // CODE HERE...
 
-
+function valueType(one, two) {
+  //strict equals
+  if (one === two) {
+    return "Exactly the same";
+    // loose equals
+  } else if (one == two) {
+    return "Same value, different types";
+    // everything else
+  } else {
+    return "Different values";
+  }
+}
 
 // *************
 // * PROBLEM 5 *
@@ -141,3 +184,10 @@ var fairyTale5 = ["daBears", "papaBear", "mamaBear", "babyBear", "goldilocks"];
 var theAnswer = "Unknown";
 
 // CODE HERE...
+function promiseCatcher(one) {
+  // USING .THEN
+  one.then(function(res) {
+    // SETTING theAnswer TO OUR RESPONSE
+    theAnswer = res;
+  });
+}
