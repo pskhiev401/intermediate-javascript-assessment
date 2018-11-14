@@ -34,20 +34,26 @@
 // In the second .then function you use, assign the third user object
 // to the variable 'thirdUser' (previously declared) and then return the tenth user object.
 
-var firstUser = 'don\'t touch this string!';
-var thirdUser = 'don\'t touch this string, either!';
+var firstUser = "don't touch this string!";
+var thirdUser = "don't touch this string, either!";
 
-function noWeakLink() {
-
-  return $http({
-    method: 'GET',
-    url: '/api/users'
-  })
-  // CODE HERE...
-
-}
-
-
+noWeakLink = () => {
+  return (
+    $http({
+      method: "GET",
+      url: "/api/users"
+    })
+      // CODE HERE...
+      .then(res => {
+        firstUser = res.data[0];
+        return res;
+      })
+      .then(res => {
+        thirdUser = res.data[2];
+        return res.data[9];
+      })
+  );
+};
 
 // *************
 // * PROBLEM 2 *
@@ -67,15 +73,16 @@ function noWeakLink() {
 // 'My name is Horton and I am very heavy!' (The above instructions should make this work.  No code needed for this paragraph)
 
 var elephant = {
-  name: 'Horton'
-}
+  name: "Horton"
+};
 function large() {
-
-  return 'My name is ' + this.name + ' and I am very heavy!'
+  return "My name is " + this.name + " and I am very heavy!";
 }
 // CODE HERE...
-
-
+// EXPLICIT BINDING, JUST LIKE IN REACT.JS
+boundToElephant = large.bind(elephant);
+// ENVOKED WHICH FIRES OFF large Function
+boundToElephant();
 
 // *************
 // * PROBLEM 3 *
@@ -88,8 +95,9 @@ function large() {
 // and return the bound function.
 
 // CODE HERE...
-
-
+deathStar = (capacity, crew) => {
+  return capacity.bind(crew);
+};
 
 // *************
 // * PROBLEM 4 *
@@ -103,8 +111,11 @@ function large() {
 // The closure function will return the combined value of assets and liabilities.
 
 // CODE HERE...
-
-
+accountingOffice = assets => {
+  return liabilities => {
+    return assets + liabilities;
+  };
+};
 
 // *************
 // * PROBLEM 5 *
@@ -129,7 +140,14 @@ function large() {
 
 // CODE HERE...
 
+forgetter = name => {
+  var arr = [];
 
+  return item => {
+    arr.push(item);
+    return { name: name, remember: arr };
+  };
+};
 
 // *************
 // * PROBLEM 6 *
@@ -156,3 +174,17 @@ function large() {
 // NOTE: Neither hunger nor danger should be able to exceed 100 or drop below 0.
 
 // CODE HERE...
+frodo = (startingHungerValue, startingDangerValue) => {
+  var arr = [];
+
+  return (obj = {
+    dinnerOverFire() {
+      hunger = hunger - 25;
+      danger = danger + 40;
+    },
+    hidingInBush() {
+      hunger = hunger + 35;
+      danger = danger - 70;
+    }
+  });
+};
